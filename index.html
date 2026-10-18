@@ -219,7 +219,7 @@ function searchMusic(){openMusicSearch();}
 function playMusicUrl(){const raw=$("musicUrl").value.trim();let id="";try{const u=new URL(raw);if(u.hostname.includes("youtu.be"))id=u.pathname.split("/").filter(Boolean)[0]||"";else if(u.hostname.includes("youtube.com")||u.hostname.includes("youtube-nocookie.com")){id=u.searchParams.get("v")||((u.pathname.match(/\/(?:embed|shorts)\/([^/?]+)/)||[])[1]||"");}}catch(e){}if(!/^[a-zA-Z0-9_-]{11}$/.test(id)){$("musicError").textContent="Geçerli bir YouTube şarkı bağlantısı yapıştırmalısın.";return;}$("musicError").textContent="Hazır! Oynat düğmesine basarak dinleyebilirsin. ♡";$("musicPlayer").src="https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&playsinline=1&rel=0";}
 function stopMusic(){$("musicPlayer").src="about:blank";$("musicError").textContent="Müzik durduruldu.";}
 async function loadState(){try{state=await api("/api/state");renderItems();renderCat();}catch(e){toast(e.message);}}
-function openPanel(name){closePanels();$("panel-"+name).classList.add("active");document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));window.scrollTo({top:document.getElementById("panel-"+name).getBoundingClientRect().top+window.scrollY-10,behavior:"smooth"});}
+function openPanel(name){closePanels();$("panel-"+name).classList.add("active");document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));if(name==="memories"){openMemoryBook();}window.scrollTo({top:document.getElementById("panel-"+name).getBoundingClientRect().top+window.scrollY-10,behavior:"smooth"});}
 function closePanels(){document.querySelectorAll(".content-panel").forEach(p=>p.classList.remove("active"));window.scrollTo({top:0,behavior:"smooth"});}
 function setNav(el){document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));el.classList.add("active");}
 function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
@@ -240,6 +240,9 @@ function turnMemoryPage(direction){
  const memories=state.items.filter(x=>x.kind==="memory");const max=Math.max(0,Math.ceil(memories.length/2)-1);const next=Math.max(0,Math.min(max,memorySpreadIndex+direction));if(next===memorySpreadIndex)return;
  const spread=$("memorySpread");spread.classList.remove("turn-next","turn-prev");void spread.offsetWidth;spread.classList.add(direction>0?"turn-next":"turn-prev");memorySpreadIndex=next;renderMemoryBook();setTimeout(()=>spread.classList.remove("turn-next","turn-prev"),650);
 }
+let memoryTouchStartX=0;
+$("memorySpread")?.addEventListener("touchstart",e=>{memoryTouchStartX=e.changedTouches[0].screenX;},{passive:true});
+$("memorySpread")?.addEventListener("touchend",e=>{const delta=e.changedTouches[0].screenX-memoryTouchStartX;if(Math.abs(delta)>45)turnMemoryPage(delta<0?1:-1);},{passive:true});
 function renderMemoryBook(){
  const memories=state.items.filter(x=>x.kind==="memory");const max=Math.max(0,Math.ceil(memories.length/2)-1);memorySpreadIndex=Math.min(memorySpreadIndex,max);
  $("memoryBookCount").textContent=memories.length?`${memories.length} güzel anı`:"Henüz anı yok";$("memoryPageIndicator").textContent=`${memorySpreadIndex+1} / ${Math.max(1,Math.ceil(memories.length/2))}`;
