@@ -1,2 +1,0 @@
-# Sinemin-d-nyas-
-sinemindünyası
