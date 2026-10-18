@@ -114,6 +114,7 @@ class ItemPayload(BaseModel):
     title: str = Field(min_length=1, max_length=120)
     body: str = Field(default="", max_length=5000)
     photo_data: str = Field(default="", max_length=2500000)
+    memory_date: str = Field(default="", max_length=40)
 
 class ActionPayload(BaseModel):
     action: str
@@ -197,12 +198,19 @@ async def add_item(payload: ItemPayload, request: Request):
     if not title:
         raise HTTPException(status_code=400, detail="Başlık boş olamaz.")
     now = datetime.now(timezone.utc).isoformat()
+    created_at = now
+    if payload.kind == "memory" and payload.memory_date.strip():
+        try:
+            parsed_date = datetime.strptime(payload.memory_date.strip(), "%Y-%m-%d")
+            created_at = parsed_date.replace(tzinfo=timezone.utc).isoformat()
+        except ValueError:
+            raise HTTPException(status_code=400, detail="Anı tarihi geçerli değil.")
     username = current_user(request)
     owner = "shared" if payload.kind in {"dream", "memory"} else username
     with db() as conn:
         cur = conn.execute(
             "INSERT INTO items(kind,title,body,photo_data,owner,created_at) VALUES(?,?,?,?,?,?)",
-            (payload.kind, title, payload.body.strip(), payload.photo_data, owner, now),
+            (payload.kind, title, payload.body.strip(), payload.photo_data, owner, created_at),
         )
         item_id = cur.lastrowid
         row = conn.execute("SELECT id,kind,title,body,photo_data,created_at FROM items WHERE id=?", (item_id,)).fetchone()
