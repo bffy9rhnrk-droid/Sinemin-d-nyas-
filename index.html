@@ -54,6 +54,45 @@ button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!im
 .memorybook-list .note-card h4,.memorybook-list .note-card p,.memorybook-list .note-meta{margin-left:15px;margin-right:15px}
 .memory-photo{display:block;width:100%;max-height:390px;object-fit:cover;background:#fff0f7;margin-bottom:12px}
 .memorybook-list .note-card h4{margin-top:0}
+
+.memorybook-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 0;color:#a46c8d;font-size:12px}
+.memory-add-toggle{padding:11px 15px!important;white-space:nowrap}
+.memory-book{position:relative;perspective:1800px;margin:10px auto 0;max-width:850px;min-height:440px}
+.book-cover{min-height:440px;border-radius:18px 24px 24px 18px;padding:36px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff7fc;background:radial-gradient(ellipse at 25% 15%,#f9b6d4 0,#d56b9e 32%,#91456f 100%);border:7px double #f4c9dd;box-shadow:inset 7px 0 12px #6c2f4b88,0 18px 35px #8b456f35;position:relative;overflow:hidden}
+.book-cover:before,.book-cover:after{content:"";position:absolute;border:1px solid #f7d9e8aa;border-radius:50%;width:260px;height:260px;transform:rotate(-25deg)}
+.book-cover:after{width:340px;height:340px}
+.cover-ribbon{font-size:50px;text-shadow:0 4px 10px #63284966;z-index:1}
+.cover-title{font-family:Georgia,serif;font-size:clamp(38px,8vw,60px);font-style:italic;line-height:1.05;text-shadow:0 3px 10px #672a4a77;z-index:1}
+.cover-subtitle{font-size:12px;letter-spacing:1px;margin:18px 0 25px;z-index:1}
+.book-cover .primary{z-index:1;background:#fff0f7!important;color:#9d4e76!important}
+.book-spread{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:440px;background:#8d5c4b;padding:12px;border-radius:12px;box-shadow:0 16px 30px #68402b33;transform-style:preserve-3d}
+.book-page{position:relative;min-width:0;background:repeating-linear-gradient(0deg,#fff8e9 0,#fff8e9 28px,#f0dfd4 29px,#fff8e9 30px);padding:20px 15px 30px;box-shadow:inset 0 0 18px #c9a78d44;overflow:hidden}
+.left-page{border-radius:9px 0 0 9px;border-right:1px solid #d7b7a0}
+.right-page{border-radius:0 9px 9px 0}
+.book-spine{position:absolute;z-index:3;left:50%;top:0;bottom:0;width:18px;transform:translateX(-50%);background:linear-gradient(90deg,#8a5c37,#f3d29b 35%,#956238 65%,#57351f);box-shadow:0 0 8px #6d3e25aa}
+.book-memory{height:100%;min-height:380px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative}
+.book-memory .memory-date{font-size:10px;color:#a06b75;letter-spacing:.5px;margin-bottom:12px}
+.book-memory .memory-photo-frame{width:100%;padding:7px 7px 18px;background:#fffdf7;box-shadow:0 3px 10px #77543b25;transform:rotate(-1.4deg);margin-bottom:15px}
+.book-memory:nth-child(even) .memory-photo-frame{transform:rotate(1.5deg)}
+.book-memory img{width:100%;height:180px;object-fit:cover;display:block;background:#f8dce8;border-radius:2px}
+.book-memory .memory-placeholder{height:180px;width:100%;display:grid;place-items:center;background:linear-gradient(135deg,#fff0f7,#f4d9e7);font-size:42px}
+.book-memory h4{font-family:Georgia,serif;font-size:17px;font-style:italic;color:#8c4d6e;margin:0 0 8px}
+.book-memory p{font-family:Georgia,serif;font-size:12px;line-height:1.65;color:#725766;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.book-heart{position:absolute;right:5px;top:0;color:#d977a5;font-size:21px}
+.memory-empty-page{display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;min-height:370px;color:#b58a9f;font-family:Georgia,serif}
+.memory-empty-page span{font-size:45px;margin-bottom:15px}
+.memory-book-controls{display:flex;align-items:center;justify-content:center;gap:14px;margin:15px auto;flex-wrap:wrap}
+.page-arrow{width:43px;height:43px;border:1px solid #efb9d2;border-radius:50%;background:#fff0f7;color:#b75e8b;font-size:31px;line-height:1;box-shadow:0 4px 10px #d98ab533}
+#memoryPageIndicator{font-size:12px;color:#a46c8d;min-width:52px;text-align:center}
+.page-turn-overlay{position:absolute;z-index:4;inset:12px 50% 12px 12px;transform-origin:right center;pointer-events:none;opacity:0;background:linear-gradient(90deg,#fff4e7,#f0d8ca,#fff9ee);box-shadow:0 0 14px #56341f55}
+.book-spread.turn-next .page-turn-overlay{animation:flipForward .62s ease-in-out}
+.book-spread.turn-prev .page-turn-overlay{left:50%;right:12px;transform-origin:left center;animation:flipBackward .62s ease-in-out}
+.book-spread.turn-next .right-page,.book-spread.turn-prev .left-page{animation:pageReveal .62s ease}
+@keyframes flipForward{0%{opacity:0;transform:rotateY(0)}15%{opacity:1}50%{opacity:1;transform:rotateY(-88deg)}100%{opacity:0;transform:rotateY(-180deg)}}
+@keyframes flipBackward{0%{opacity:0;transform:rotateY(0)}15%{opacity:1}50%{opacity:1;transform:rotateY(88deg)}100%{opacity:0;transform:rotateY(180deg)}}
+@keyframes pageReveal{0%{opacity:.35;transform:translateX(5px)}100%{opacity:1;transform:translateX(0)}}
+@media(max-width:600px){.memory-book{min-height:370px}.book-cover{min-height:370px}.book-spread{min-height:370px;padding:7px}.book-page{padding:16px 8px 20px}.book-memory{min-height:320px}.book-memory img,.book-memory .memory-placeholder{height:135px}.book-memory h4{font-size:14px}.book-memory p{font-size:11px;line-height:1.45}.book-memory .memory-date{font-size:9px}.book-spine{width:12px}.memorybook-toolbar{align-items:flex-start}.memory-add-toggle{font-size:12px!important}}
+@media(prefers-reduced-motion:reduce){.book-spread.turn-next .page-turn-overlay,.book-spread.turn-prev .page-turn-overlay,.book-spread.turn-next .right-page,.book-spread.turn-prev .left-page{animation-duration:.01ms}}
 </style>
 </head>
 <body>
@@ -97,7 +136,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!im
     <button class="tile" onclick="openPanel('dreams')" style="--tile:#e4efff"><div class="tile-icon">✨</div><div><strong>Hayallerimiz</strong><small>Birlikte yapacaklarımız</small></div><span class="tile-arrow">↗</span></button>
   </section>
 
-  <section class="content-panel" id="panel-memories"><div class="panel-top"><h3>📖 Anı Defterimiz</h3><button class="back-btn" onclick="closePanels()">← Ana sayfa</button></div><div class="memorybook-intro">Bir fotoğraf ekle, altına o günün hikâyesini yaz. Güzel anılarınız burada saklansın. 💗</div><div class="add-form memorybook-form"><label class="photo-pick" for="memoryPhoto"><span style="font-size:34px">📷</span><strong>Fotoğraf seç</strong><small>Galerinden bir fotoğraf ekle</small></label><input id="memoryPhoto" type="file" accept="image/*" class="photo-input"><div id="memoryPhotoPreview" class="photo-preview hidden"></div><input class="field" id="memoryTitle" placeholder="Bu anıya bir başlık ver"><textarea class="field" id="memoryBody" placeholder="Fotoğrafın altına bir not yaz... O gün ne olmuştu, neler hissetmiştin?"></textarea><button class="primary" onclick="addMemory()">Anı defterine ekle ♡</button></div><div id="memoryList" class="item-list memorybook-list"></div></section>
+  <section class="content-panel" id="panel-memories"><div class="panel-top"><h3>📖 Anı Defterimiz</h3><button class="back-btn" onclick="closePanels()">← Ana sayfa</button></div><div class="memorybook-intro">Birlikte biriktirdiğiniz anılar, bu defterin sayfalarında saklı. Sayfaları çevirerek anıdan anıya geçin. 💗</div><div class="memorybook-toolbar"><span id="memoryBookCount">Henüz anı yok</span><button class="primary memory-add-toggle" onclick="toggleMemoryForm()">＋ Yeni Anı Ekle</button></div><div id="memoryBook" class="memory-book"><div class="book-cover"><div class="cover-ribbon">♡</div><div class="cover-title">Anı<br>Defterimiz</div><div class="cover-subtitle">Sinem &amp; Murat · Birlikte yazılan hikâyemiz</div><button class="primary" onclick="openMemoryBook()">Defteri Aç ♡</button></div><div class="book-spread hidden" id="memorySpread"><div class="book-page left-page" id="memoryLeftPage"></div><div class="book-spine"></div><div class="book-page right-page" id="memoryRightPage"></div><div class="page-turn-overlay" id="pageTurnOverlay"></div></div></div><div class="memory-book-controls hidden" id="memoryBookControls"><button class="page-arrow" onclick="turnMemoryPage(-1)" aria-label="Önceki sayfa">‹</button><span id="memoryPageIndicator">1 / 1</span><button class="page-arrow" onclick="turnMemoryPage(1)" aria-label="Sonraki sayfa">›</button><button class="soft-btn" onclick="closeMemoryBook()">Defteri Kapat</button></div><div class="add-form memorybook-form hidden" id="memoryForm"><label class="photo-pick" for="memoryPhoto"><span style="font-size:34px">📷</span><strong>Fotoğraf seç</strong><small>Galerinden bir fotoğraf ekle</small></label><input id="memoryPhoto" type="file" accept="image/*" class="photo-input"><div id="memoryPhotoPreview" class="photo-preview hidden"></div><input class="field" id="memoryTitle" placeholder="Bu anıya bir başlık ver"><textarea class="field" id="memoryBody" placeholder="Fotoğrafın altına bir not yaz... O gün ne olmuştu, neler hissetmiştin?"></textarea><button class="primary" onclick="addMemory()">Anı defterine ekle ♡</button></div><div id="memoryList" class="item-list memorybook-list hidden"></div></section>
 
   <section class="content-panel" id="panel-cat"><div class="panel-top"><h3>🐱 Minik sarı kedin</h3><button class="back-btn" onclick="closePanels()">← Ana sayfa</button></div><div class="cat-area"><div class="cat-stage"><div><div class="cat-emoji" id="catEmoji">🐈</div><p id="catMessage">Miyav! Sen gelince çok mutlu oldum.</p></div></div><div><div class="stat"><div class="stat-line"><span>♡ Mutluluk</span><b id="happyText">75%</b></div><div class="bar"><span id="happyBar" style="width:75%"></span></div></div><div class="stat"><div class="stat-line"><span>🍓 Mama</span><b id="foodText">65%</b></div><div class="bar"><span id="foodBar" style="width:65%"></span></div></div><div class="stat"><div class="stat-line"><span>⭐ Sevgi puanın</span><b id="pointsText">0</b></div></div><div class="actions"><button class="primary" onclick="catAction('feed')">🍓 Mama ver</button><button class="soft-btn" onclick="catAction('play')">🧶 Birlikte oyna</button></div><p style="font-size:11px;color:#b28ca5;line-height:1.6">Kedinin mutluluğunu artır, sevgi puanları topla.</p></div></div></section>
 
@@ -184,12 +223,28 @@ function openPanel(name){closePanels();$("panel-"+name).classList.add("active");
 function closePanels(){document.querySelectorAll(".content-panel").forEach(p=>p.classList.remove("active"));window.scrollTo({top:0,behavior:"smooth"});}
 function setNav(el){document.querySelectorAll(".bottom-nav button").forEach(b=>b.classList.remove("active"));el.classList.add("active");}
 function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+let memorySpreadIndex=0,memoryBookOpened=false;
 function renderItems(){
  const map={memory:"memoryList",letter:"letterList",journal:"journalList",dream:"dreamList"};
  Object.entries(map).forEach(([kind,id])=>{
    const items=state.items.filter(x=>x.kind===kind);
    $(id).innerHTML=items.length?items.map(x=>`<article class="note-card"><button class="delete" title="Sil" onclick="deleteItem(${x.id})">×</button>${kind==="memory"&&x.photo_data?`<img class="memory-photo" src="${x.photo_data}" alt="${escapeHTML(x.title)}">`:""}<h4>${escapeHTML(x.title)}</h4><p>${escapeHTML(x.body).replace(/\\n/g,"<br>")}</p><div class="note-meta">${new Date(x.created_at).toLocaleDateString("tr-TR",{day:"numeric",month:"long",year:"numeric"})}</div></article>`).join(""):`<div class="empty" style="grid-column:1/-1"><b>♡</b>Buraya henüz bir şey eklenmedi.<br>İlk güzel anını sen ekle.</div>`;
  });
+ renderMemoryBook();
+}
+
+function toggleMemoryForm(){ $("memoryForm").classList.toggle("hidden"); }
+function openMemoryBook(){memoryBookOpened=true;$("memorySpread").classList.remove("hidden");$("memoryBookControls").classList.remove("hidden");$("memoryBook").querySelector(".book-cover").classList.add("hidden");renderMemoryBook();}
+function closeMemoryBook(){memoryBookOpened=false;$("memorySpread").classList.add("hidden");$("memoryBookControls").classList.add("hidden");$("memoryBook").querySelector(".book-cover").classList.remove("hidden");}
+function turnMemoryPage(direction){
+ const memories=state.items.filter(x=>x.kind==="memory");const max=Math.max(0,Math.ceil(memories.length/2)-1);const next=Math.max(0,Math.min(max,memorySpreadIndex+direction));if(next===memorySpreadIndex)return;
+ const spread=$("memorySpread");spread.classList.remove("turn-next","turn-prev");void spread.offsetWidth;spread.classList.add(direction>0?"turn-next":"turn-prev");memorySpreadIndex=next;renderMemoryBook();setTimeout(()=>spread.classList.remove("turn-next","turn-prev"),650);
+}
+function renderMemoryBook(){
+ const memories=state.items.filter(x=>x.kind==="memory");const max=Math.max(0,Math.ceil(memories.length/2)-1);memorySpreadIndex=Math.min(memorySpreadIndex,max);
+ $("memoryBookCount").textContent=memories.length?`${memories.length} güzel anı`:"Henüz anı yok";$("memoryPageIndicator").textContent=`${memorySpreadIndex+1} / ${Math.max(1,Math.ceil(memories.length/2))}`;
+ const renderPage=(item,idx)=>item?`<article class="book-memory"><div class="memory-date">${new Date(item.created_at).toLocaleDateString("tr-TR",{day:"2-digit",month:"long",year:"numeric"})}</div><div class="memory-photo-frame">${item.photo_data?`<img src="${item.photo_data}" alt="${escapeHTML(item.title)}">`:`<div class="memory-placeholder">💗</div>`}</div><span class="book-heart">♡</span><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.body||"Bu güzel anı hep bizimle kalsın. ♡").replace(/\\n/g,"<br>")}</p><button class="delete" style="position:relative;right:auto;top:auto;margin-top:10px" title="Anıyı sil" onclick="deleteItem(${item.id})">Anıyı sil ×</button></article>`:`<div class="memory-empty-page"><span>♡</span><strong>Yeni bir anı burada yerini bekliyor</strong><p>Bu sayfaya birlikte yeni bir hikâye ekleyin.</p></div>`;
+ $("memoryLeftPage").innerHTML=renderPage(memories[memorySpreadIndex*2],memorySpreadIndex*2);$("memoryRightPage").innerHTML=renderPage(memories[memorySpreadIndex*2+1],memorySpreadIndex*2+1);
 }
 
 let selectedMemoryPhoto="";
@@ -225,7 +280,7 @@ async function addMemory(){
  if(!selectedMemoryPhoto&&!body){toast("Bir fotoğraf veya anı notu ekle ♡");return;}
  try{
   const item=await api("/api/items",{method:"POST",body:JSON.stringify({kind:"memory",title,body,photo_data:selectedMemoryPhoto})});
-  state.items.unshift(item);$("memoryTitle").value="";$("memoryBody").value="";removeMemoryPhoto();renderItems();toast("Anın deftere eklendi ♡");
+  state.items.unshift(item);memorySpreadIndex=0;$("memoryTitle").value="";$("memoryBody").value="";removeMemoryPhoto();renderItems();if(!memoryBookOpened)openMemoryBook();$("memoryForm").classList.add("hidden");toast("Anın deftere eklendi ♡");
  }catch(e){toast(e.message||"Anı kaydedilemedi.");}
 }
 
